@@ -1,0 +1,11 @@
+# 1. 进行代码修改
+
+# 2. 本地测试
+npm start
+
+# 3. 提交更改
+git add .
+git commit -m "更新说明"
+
+# 4. 推送到GitHub
+git push origin main

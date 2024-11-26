@@ -1,6 +1,7 @@
 {
   "name": "tovice-website",
-  "version": "1.0.0",
+  "version": "0.1.0",
+  "homepage": "https://tovice.co",
   "description": "",
   "main": "index.js",
   "scripts": {
