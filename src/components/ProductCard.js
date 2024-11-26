@@ -6,10 +6,12 @@ import ImageCarousel from './ImageCarousel';
 
 const ProductCard = ({ product, onShowCompatibility }) => {
   return (
-    <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-      <div className="p-4">
-        <h2 className="text-xl font-bold mb-2">{product.name}</h2>
+    <div className="bg-white rounded-lg shadow-lg overflow-hidden h-full"> {/* 添加 h-full */}
+    <div className="p-4 flex flex-col h-full"> {/* 添加 flex flex-col h-full */}
+      <h2 className="text-xl font-bold mb-2">{product.name}</h2>
+      <div className="flex-grow"> {/* 添加这个包装层 */}
         <ImageCarousel images={product.images} />
+      </div>
         <p className="text-gray-600 my-4">{product.description}</p>
         <ul className="list-disc list-inside mb-4 text-gray-700">
           {product.features.map((feature, index) => (
@@ -32,7 +34,7 @@ const ProductCard = ({ product, onShowCompatibility }) => {
         </div>
 
         
-        <a                        // 增加了这个 <a 开头
+        <a                        
         href={product.amazonLink}
         target="_blank"
         rel="noopener noreferrer"
