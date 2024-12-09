@@ -13,14 +13,14 @@ const App = () => {
   const products = [
     {
       id: 1,
-      name: "Sport Bottle Ice Mold - Rose Pink",
+      name: "Ice Molds for Owala 24-40oz, Set of 3 - Rose Pink",
       color: "#ebcbbe",
-      description: "Designed specifically for sport water bottles, our slim ice mold creates perfect long-lasting ice sticks. Made with premium food-grade silicone for safe and durable use.",
+      description: "Designed specifically for Owala water bottle, our off-centered ice mold creates perfect long-lasting ice cubes. Made with premium food-grade silicone for safe and durable use.",
       features: [
-        "Premium food-grade silicone material",
-        "Perfect fit for sport bottles",
-        "Easy to clean and store",
-        "Durable and reusable",
+        "Off center design, straw sits to one side",
+        "Side wing design, easy to release",
+        "Extended cooling duration",
+        "Leak-proof seal",
       ],
       amazonLink: "https://www.amazon.com/Ice-Mold-Accessories-Placement-Compatible/dp/B0DHNTM3J7",
       // images: Array(6).fill("/api/placeholder/400/300"),
@@ -36,32 +36,27 @@ const App = () => {
       ],
       compatibleBottles: [
         {
-          name: "Hydro Flask Standard Mouth",
-          image: "/api/placeholder/200/300",
-          description: "Perfect fit for 18oz, 21oz, 24oz standard mouth bottles"
+          name: "Owala Freesip",
+          image:  "/assets/images/bottles/Owala_Freesip.png",
+          description: "Perfect for 24oz, 32oz, 40oz wide mouth bottles"
         },
         {
-          name: "S'well Original",
-          image: "/api/placeholder/200/300",
-          description: "Compatible with 17oz, 25oz bottles"
-        },
-        {
-          name: "Klean Kanteen Classic",
-          image: "/api/placeholder/200/300",
-          description: "Fits 20oz, 27oz classic bottles"
+          name: "Stanley Cup",
+          image:  "/assets/images/bottles/Stanley_Cup.png",
+          description: "Compatible with 30oz, 40oz bottles"
         }
       ]
     },
     {
       id: 2,
-      name: "Sport Bottle Ice Mold - Sage Green",
+      name: "Ice Molds for Owala 24-40oz, Set of 3 - Sage Green",
       color: "#a1cd9d",
-      description: "XL version of our sport bottle ice mold, perfect for larger capacity bottles. Special elongated design ensures long-lasting cooling effect.",
+      description: "Designed specifically for Owala water bottle, our off-centered ice mold creates perfect long-lasting ice cubes. Made with premium food-grade silicone for safe and durable use.",
       features: [
-        "Larger size design",
+        "Off center design, straw sits to one side",
+        "Side wing design, easy to release",
         "Extended cooling duration",
-        "Leak-proof seal",
-        "Easy release design",
+        "Leak-proof seal"
       ],
       amazonLink: "https://www.amazon.com/Ice-Food-Grade-Silicone-Placement-Compatible/dp/B0DJ33LBHG",
       images: [
@@ -76,19 +71,14 @@ const App = () => {
       ],
       compatibleBottles: [
         {
-          name: "Hydro Flask Wide Mouth",
+          name: "Owala Freesip",
           image: "/api/placeholder/200/300",
-          description: "Perfect for 32oz, 40oz wide mouth bottles"
+          description: "Perfect for 24oz, 32oz, 40oz wide mouth bottles"
         },
         {
-          name: "YETI Rambler",
+          name: "Stanley Cup",
           image: "/api/placeholder/200/300",
-          description: "Compatible with 26oz, 36oz bottles"
-        },
-        {
-          name: "ThermoFlask",
-          image: "/api/placeholder/200/300",
-          description: "Fits 24oz, 40oz bottles"
+          description: "Compatible with 30oz, 40oz bottles"
         }
       ]
     }
@@ -118,6 +108,7 @@ const App = () => {
         <div className="space-y-6">
           <div>
             <h3 className="text-xl font-semibold mb-3">Our Story</h3>
+            <h4 className="text-base font-semibold mb-3">Chill Smarter: Perfect Ice, Perfect Fit, Every Sip!</h4>
             <p className="text-gray-700">
               TOVICE was born from a simple observation: while sports water bottles have evolved significantly, 
               the way we keep drinks cold hasn't changed much. We set out to create the perfect ice mold 
@@ -149,10 +140,11 @@ const App = () => {
           <div>
             <h3 className="text-xl font-semibold mb-3">The TOVICE Difference</h3>
             <ul className="list-disc list-inside text-gray-700 space-y-2">
-              <li>Professional design for optimal cooling duration</li>
-              <li>Easy release design prevents sticking and breaking</li>
-              <li>Durable construction for years of use</li>
-              <li>Perfect fit for most popular sports bottles</li>
+              <li>Off-Center Design: Fits water bottles with side-positioned straws without bending or blocking.  </li>
+              <li>Easy release design: no more frustration poping ice out</li>
+              <li>Efficient & Space-Saving:Larger ice fills bottles faster, lasts longer, and stacks easily in your freezer.  
+              </li>
+              <li>Perfect fit: Specifically crafted to work seamlessly with popular water bottles like Owala.</li>
               <li>100% satisfaction guarantee</li>
             </ul>
           </div>

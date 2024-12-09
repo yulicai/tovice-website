@@ -14,7 +14,7 @@ const CompatibilityModal = ({ product, onClose }) => (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {product.compatibleBottles.map((bottle, index) => (
             <div key={index} className="border rounded-lg p-4">
-              <img src={bottle.image} alt={bottle.name} className="w-full h-48 object-cover rounded-lg mb-4" />
+              <img src={bottle.image} alt={bottle.name} className="max-h-[90vh] max-w-[90vw] object-cover rounded-lg mb-4" />
               <h3 className="font-bold mb-2">{bottle.name}</h3>
               <p className="text-gray-600">{bottle.description}</p>
             </div>

@@ -29,7 +29,7 @@ const ProductCard = ({ product, onShowCompatibility }) => {
             </span>
           </button>
           <div className="text-sm text-gray-600">
-            Compatible with: Hydro Flask, S&apos;well, Klean Kanteen, and more...
+            Compatible with: Owala 24oz, 32oz, 40oz; Hydro Flask and more...
           </div>
         </div>
 
