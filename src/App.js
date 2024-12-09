@@ -72,12 +72,12 @@ const App = () => {
       compatibleBottles: [
         {
           name: "Owala Freesip",
-          image: "/api/placeholder/200/300",
+          image:  "/assets/images/bottles/Owala_Freesip.png",
           description: "Perfect for 24oz, 32oz, 40oz wide mouth bottles"
         },
         {
           name: "Stanley Cup",
-          image: "/api/placeholder/200/300",
+          image:  "/assets/images/bottles/Stanley_Cup.png",
           description: "Compatible with 30oz, 40oz bottles"
         }
       ]
