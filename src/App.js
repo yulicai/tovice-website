@@ -288,36 +288,36 @@ const App = () => {
         <div className="bg-white rounded-xl shadow-lg p-10">
           <h2 className="text-4xl font-light text-brand-primary mb-8">Why Choose TOVICE?</h2>
           <div className="space-y-10">
-            <div>
+          <div>
               <h3 className="text-2xl font-light text-brand-primary mb-4">Our Story</h3>
               <h4 className="text-xl font-medium text-brand-primary mb-6">
                 Water is everywhere in our lives, and we're here to make it more fun!
               </h4>
               <p className="text-brand-primary/80 leading-relaxed text-lg">
                 Think about it - we carry water bottles everywhere: to the gym, to work, on hikes, even to bed (because hydration never sleeps, right?). But here's the thing: while our water bottles have gotten super fancy with straws, handles, and all the bells and whistles, the way we keep our drinks cold and carry them around hasn't really evolved much. It's like we're still using the same old ice cube trays and basic bags our grandparents used!
-              </p>
-            </div>
-            
-            <div>
+            </p>
+          </div>
+          
+          <div>
               <h3 className="text-2xl font-light text-brand-primary mb-4">The Problems We Solved</h3>
               <p className="text-brand-primary/80 leading-relaxed text-lg">
                 Ever tried to put regular ice cubes in your fancy water bottle with a straw? It's like trying to fit a square peg in a round hole - the ice gets in the way of your straw, melts too quickly, and honestly, it's just not cool (pun intended). And what about carrying your precious Stanley Cup or Owala bottle around? Regular bags don't understand the struggle - bottles tip over, spill everywhere, and your expensive hydration companion ends up rolling around like it's having a party without you.
               </p>
-            </div>
-            
-            <div>
+          </div>
+
+          <div>
               <h3 className="text-2xl font-light text-brand-primary mb-4">Our Complete Solution</h3>
               <p className="text-brand-primary/80 leading-relaxed text-lg">
                 That's where TOVICE comes in! We're not just another accessories company - we're your hydration lifestyle partners. Our smart ice molds are specifically designed for modern water bottles with straws, sitting perfectly to one side so your straw can do its job without fighting with ice cubes. Our carry solutions - from magnetic gym bags that free your hands to stylish totes with dedicated bottle holders - keep your bottles secure, upright, and ready for action. And our personalized letter charms? They make your bottle uniquely yours while serving as functional handle straps.
               </p>
-            </div>
-            
+      </div>
+
             <div>
               <h3 className="text-2xl font-light text-brand-primary mb-4">What Makes Us Different</h3>
               <p className="text-brand-primary/80 leading-relaxed text-lg">
                 We're a team of people who actually use water bottles every day and understand the real struggles. We've tested our products in real situations - from morning workouts where you need your hands free, to afternoon meetings where your bottle needs to look professional, to weekend adventures where everything needs to stay organized. Every design decision we make is based on one simple question: "Does this make the water bottle lifestyle more fun, convenient, and stylish?"
               </p>
-            </div>
+          </div>
             
             <div>
               <h3 className="text-2xl font-light text-brand-primary mb-4">Our Promise</h3>
