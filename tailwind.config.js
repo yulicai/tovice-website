@@ -8,6 +8,9 @@ module.exports = {
         colors: {
           'product-pink': '#ebcbbe',
           'product-green': '#a1cd9d',
+          'brand-primary': '#13606d',
+          'brand-secondary': '#b4e0e0',
+          'brand-light': '#e8f4f4',
         }
       },
     },

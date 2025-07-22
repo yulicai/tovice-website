@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import ImageViewerModal from './ImageViewerModal';
 
-const ImageCarousel = ({ images }) => {
+const ImageCarousel = ({ images, imgClassName = "", showThumbnails = true }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showViewer, setShowViewer] = useState(false);
 
@@ -16,54 +16,67 @@ const ImageCarousel = ({ images }) => {
 
   return (
     <>
-      <div className="relative group aspect-[4/3] w-full">
-        <div className="w-full h-full overflow-hidden rounded-lg">
+      {/* 主图区域，固定高度 */}
+      <div className="relative group w-full">
+        <div className="w-full overflow-hidden rounded-lg flex items-center justify-center" style={{height: '408px', maxHeight: '72vw'}}>
           <img 
             src={images[currentIndex]} 
             alt={`Product image ${currentIndex + 1}`}
-            className="w-full h-full object-contain cursor-pointer" // 添加 cursor-pointer
-            style={{
-              maxHeight: '500px',
-              margin: '0 auto'
-            }}
-            onClick={() => setShowViewer(true)} // 添加点击事件
+            className={`max-h-full max-w-full object-contain cursor-pointer ${imgClassName}`}
+            onClick={() => setShowViewer(true)}
           />
         </div>
-        <button 
-          onClick={(e) => {
-            e.stopPropagation(); // 防止触发图片点击事件
-            prevImage();
-          }}
-          className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-        >
-          <ChevronLeft className="w-6 h-6" />
-        </button>
-        <button 
-          onClick={(e) => {
-            e.stopPropagation(); // 防止触发图片点击事件
-            nextImage();
-          }}
-          className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/80 p-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
-        >
-          <ChevronRight className="w-6 h-6" />
-        </button>
-        <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex space-x-2">
-          {images.map((_, index) => (
-            <button
-              key={index}
+        {images.length > 1 && (
+          <>
+            <button 
               onClick={(e) => {
                 e.stopPropagation();
-                setCurrentIndex(index);
+                prevImage();
               }}
-              className={`w-2 h-2 rounded-full ${
-                index === currentIndex ? 'bg-white' : 'bg-white/50'
-              }`}
-            />
-          ))}
-        </div>
+              className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all shadow-lg"
+            >
+              <ChevronLeft className="w-4 h-4 text-brand-primary" />
+            </button>
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();
+                nextImage();
+              }}
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white p-2 rounded-full opacity-0 group-hover:opacity-100 transition-all shadow-lg"
+            >
+              <ChevronRight className="w-4 h-4 text-brand-primary" />
+            </button>
+          </>
+        )}
       </div>
 
-      {/* 图片查看器模态框 */}
+      {/* 缩略图carousel，固定间距 */}
+      {showThumbnails && images.length > 1 && (
+        <div className="flex gap-2 justify-center" style={{marginTop: '12px'}}>
+          {images.map((img, idx) => (
+            <button
+              key={idx}
+              onClick={e => {
+                e.stopPropagation();
+                setCurrentIndex(idx);
+              }}
+              className={`border rounded-lg overflow-hidden w-14 h-14 flex-shrink-0 transition-all duration-200 focus:outline-none ${
+                idx === currentIndex
+                  ? 'border-brand-primary ring-2 ring-brand-primary'
+                  : 'border-gray-200 hover:border-brand-primary/50'
+              }`}
+              style={{ background: '#fff' }}
+            >
+              <img
+                src={img}
+                alt={`Thumbnail ${idx + 1}`}
+                className="w-full h-full object-contain"
+              />
+            </button>
+          ))}
+        </div>
+      )}
+
       {showViewer && (
         <ImageViewerModal
           images={images}

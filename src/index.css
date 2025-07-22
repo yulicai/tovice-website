@@ -1,3 +1,88 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.product-section-title {
+  text-align: left !important;
+  font-weight: 800 !important;
+  line-height: 1.3 !important;
+  font-size: 5rem;
+  margin-bottom: 1rem;
+  color: #13606d;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.product-section-subtitle {
+  text-align: left !important;
+  font-weight: 600 !important;
+  font-size: 1.5rem;
+  color: #13606d;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.01em;
+}
+
+@layer utilities {
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+@layer components {
+  .product-section {
+    @apply py-20 px-8 md:px-16 lg:px-32;
+  }
+  
+  .product-section:nth-child(even) {
+    @apply bg-white;
+  }
+  
+  .product-section:nth-child(odd) {
+    @apply bg-brand-light;
+  }
+  
+  .section-title {
+    @apply text-5xl md:text-6xl font-light text-brand-primary mb-6;
+  }
+  
+  .section-subtitle {
+    @apply text-xl text-brand-primary/70 max-w-2xl mx-auto;
+  }
+}
+
+@layer base {
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-weight: 300;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+  }
+  
+  .font-light {
+    font-weight: 300;
+  }
+  
+  .font-medium {
+    font-weight: 500;
+  }
+  
+  .font-bold {
+    font-weight: 600;
+  }
+}
