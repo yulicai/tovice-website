@@ -68,18 +68,9 @@
     details p { margin:12px 0 8px; color:var(--muted); }
     #copy-status { color:var(--ink); font-size:13px; margin:8px 0 0; }
     #copy-status:empty { display:none; }
-    .after-email { border-top:1px solid var(--line); margin-top:24px; padding-top:20px; }
-    .after-email p { margin:0 0 12px; font-size:13px; color:var(--muted); }
-    .after-email .button { font-size:14px; }
-    .tester-copy { font-size:15px; color:var(--muted); }
-    .tester-copy p { margin:0 0 17px; }
-    .tester-question { font-size:18px; font-weight:650; line-height:1.4; margin:22px 0 15px; }
-    .story { padding:19px; margin:22px 0; background:var(--accent); border-radius:12px; }
-    .story p:last-child { margin-bottom:0; }
-    #tester-body { font-size:14px; margin:12px 0 18px; min-height:210px; background:#fafbf9; }
-    .copy-status { font-size:13px; margin:10px 0 0; }
-    .copy-status:empty { display:none; }
-    .mission { margin:24px 0 18px; font-size:15px; font-weight:650; color:var(--ink); letter-spacing:-.01em; }
+    .mission { margin:0 0 24px; font-size:17px; font-weight:650; color:var(--ink); letter-spacing:-.01em; }
+    .field-error { margin:7px 0 0; color:#a33324; font-size:13px; }
+    input[aria-invalid=true] { border-color:#a33324; }
     footer { text-align:center; padding:25px 10px 0; color:var(--muted); font-size:12px; }
     footer p { margin:0 0 8px; }
     footer a { font-size:14px; overflow-wrap:anywhere; }
@@ -93,12 +84,13 @@
     <header><span class="brand">TOVICE</span><span class="header-label">Product support</span></header>
     <main>
       <section class="intro">
+        <p class="mission">Less time searching. More time exploring.</p>
         <p class="eyebrow">For your purse organizer</p>
         <h1>How can we help?</h1>
         <p><strong>180-day free returns &amp; exchanges.</strong><br>Provided directly by TOVICE. Tell us how we can help with your organizer.</p>
       </section>
       <section class="card" aria-label="Contact support">
-        <form id="support-form" hidden>
+        <form id="support-form" novalidate hidden>
           <div class="steps" aria-label="Step 1 of 2"><strong>01 · Your details</strong><span class="line" aria-hidden="true"></span><span>02 · Your email</span></div>
           <fieldset>
             <legend>What would you like to do?</legend>
@@ -127,9 +119,10 @@
             <p class="hint">Your suggestions go privately to our team and help us improve future organizers.</p>
           </section>
           <div class="field">
-            <label class="field-label" for="order">Order number</label>
-            <input type="text" id="order" name="order" maxlength="60" placeholder="Enter your order number" autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="order-hint" required>
-            <p class="hint" id="order-hint">Find it in your order confirmation or purchase history.</p>
+            <label class="field-label" for="order">Amazon order number</label>
+            <input type="text" id="order" name="order" maxlength="60" pattern="[0-9]{3}-[0-9]{7}-[0-9]{7}" placeholder="123-1234567-1234567" autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="order-hint order-error" required>
+            <p class="hint" id="order-hint">In Amazon, go to <strong>Your Orders</strong>, select your purchase, then open <strong>Order Details</strong>. You can also find the number in your order confirmation email.</p>
+            <p class="field-error" id="order-error" hidden></p>
           </div>
           <div class="field">
             <label class="field-label" for="notes"><span id="notes-label">Anything else?</span> <span class="optional" id="notes-optional">(optional)</span></label>
@@ -159,52 +152,11 @@
             <p id="copy-status" role="status" aria-live="polite"></p>
             <textarea id="copy-fallback" aria-label="Email details to copy manually" rows="12" readonly hidden></textarea>
           </details>
-          <div class="after-email">
-            <p>Once you’ve sent your email, come back here for a small invitation from our team.</p>
-            <button class="button secondary" id="email-sent" type="button">I’ve sent my support email</button>
-          </div>
-        </section>
-        <section id="tester-invitation" aria-labelledby="tester-title" hidden>
-          <button class="back" id="back-to-support" type="button">← Back to my support email</button>
-          <p class="eyebrow">An optional invitation</p>
-          <h2 id="tester-title" tabindex="-1">Help shape what comes next.</h2>
-          <div class="tester-copy">
-            <p>We’re always working to make better purse organizers, shaped by everyday experiences like yours.</p>
-            <div class="story">
-              <p>Ever forget which pocket you put something in?</p>
-              <p>We’re developing organizer pouches with different colors and textures, so it’s easier to remember what’s where — and find it by sight or touch.</p>
-            </div>
-            <p>Less time searching in your bag. More freedom to get out and explore the world.</p>
-          </div>
-          <div id="tester-question">
-            <p class="tester-question">Would you like to become a TOVICE product tester?</p>
-            <button class="button" id="tester-yes" type="button">I’m interested</button>
-            <button class="button secondary" id="tester-no" type="button">Not now</button>
-            <p class="button-note">This is optional and won’t affect your support request.</p>
-          </div>
-          <section id="tester-email" aria-labelledby="tester-email-title" hidden>
-            <h2 id="tester-email-title" tabindex="-1">Let us know you’re interested.</h2>
-            <p class="preview-intro">Send this separate email to ask TOVICE to contact you about future product-testing opportunities.</p>
-            <p class="email-label">To</p><p class="recipient">hi.tovice@gmail.com</p>
-            <p class="email-label">Subject</p><p class="subject" id="tester-subject"></p>
-            <label class="email-label" for="tester-body">Message</label>
-            <textarea id="tester-body" rows="9" readonly></textarea>
-            <a class="button" id="tester-open-email" href="mailto:hi.tovice@gmail.com">Open interest email <span aria-hidden="true">↗</span></a>
-            <p class="button-note">Tap Send in your email app to share your interest.</p>
-            <button class="button secondary" id="copy-tester" type="button">Copy interest email</button>
-            <p class="copy-status" id="tester-copy-status" role="status" aria-live="polite"></p>
-            <textarea id="tester-copy-fallback" aria-label="Interest email details to copy manually" rows="12" readonly hidden></textarea>
-          </section>
-          <section id="tester-declined" hidden>
-            <h2 id="tester-declined-title" tabindex="-1">No problem.</h2>
-            <p class="tester-copy">We’re here whenever you need help with your organizer. Thank you for sharing your experience with us.</p>
-          </section>
         </section>
         <noscript>Please enable JavaScript to prepare your email, or email <a href="mailto:hi.tovice@gmail.com">hi.tovice@gmail.com</a> with your order number and the issue.</noscript>
       </section>
     </main>
     <footer>
-      <p class="mission">Less time searching. More time exploring.</p>
       <p>Prefer to write to us directly?</p>
       <a href="mailto:hi.tovice@gmail.com">hi.tovice@gmail.com</a>
       <p class="small-print">This page prepares an email; it does not submit a return.<br>Your form details stay in this browser until you choose to email them.</p>
@@ -223,9 +175,8 @@
     const copyFallback = document.getElementById('copy-fallback');
     const sizeOffer = document.getElementById('size-offer');
     const sizeSwap = document.getElementById('size-swap');
-    const tester = document.getElementById('tester-invitation');
+    const orderError = document.getElementById('order-error');
     let copyText = '';
-    let testerCopyText = '';
     const toCRLF = text => text.replace(/\r\n|\r|\n/g, '\r\n');
     const mailto = (subject, body) => 'mailto:' + SUPPORT_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
     function updateSizeOffer() {
@@ -247,21 +198,28 @@
     }
     form.addEventListener('change', updateSizeOffer);
     form.hidden = false;
-    order.addEventListener('input', () => order.setCustomValidity(''));
+    order.addEventListener('input', () => {
+      order.setCustomValidity('');
+      order.removeAttribute('aria-invalid');
+      orderError.hidden = true;
+    });
+    order.addEventListener('invalid', () => {
+      order.setAttribute('aria-invalid', 'true');
+      orderError.textContent = order.validationMessage;
+      orderError.hidden = false;
+    });
     notes.addEventListener('input', () => notes.setCustomValidity(''));
     form.addEventListener('submit', event => {
       event.preventDefault();
-      const orderNumber = order.value.trim().replace(/[\r\n]/g, ' ');
-      if (!orderNumber) {
-        order.setCustomValidity('Please enter your order number.');
-        order.reportValidity();
-        return;
-      }
-      if (sizeSwap.checked && !notes.value.trim()) {
-        notes.setCustomValidity('Please share a product suggestion for the free size offer.');
-        notes.reportValidity();
-        return;
-      }
+      const orderNumber = order.value.trim();
+      order.value = orderNumber;
+      order.setCustomValidity(/^[0-9]{3}-[0-9]{7}-[0-9]{7}$/.test(orderNumber)
+        ? '' : 'Enter your Amazon order number in this format: 123-1234567-1234567.');
+      notes.setCustomValidity(sizeSwap.checked && !notes.value.trim()
+        ? 'Please share a product suggestion for the free size offer.' : '');
+      if (!form.reportValidity()) return;
+      order.removeAttribute('aria-invalid');
+      orderError.hidden = true;
       const data = new FormData(form);
       const reason = data.get('reason');
       const request = data.get('request');
@@ -307,44 +265,6 @@
       }
     }
     document.getElementById('copy-email').addEventListener('click', () => copyEmail(copyText, copyStatus, copyFallback));
-    document.getElementById('email-sent').addEventListener('click', () => {
-      // This is the customer's own confirmation; mailto cannot report whether an email was sent.
-      preview.hidden = true;
-      tester.hidden = false;
-      document.getElementById('tester-question').hidden = false;
-      document.getElementById('tester-email').hidden = true;
-      document.getElementById('tester-declined').hidden = true;
-      document.getElementById('tester-title').focus();
-    });
-    document.getElementById('back-to-support').addEventListener('click', () => {
-      tester.hidden = true;
-      preview.hidden = false;
-      document.getElementById('preview-title').focus();
-    });
-    document.getElementById('tester-yes').addEventListener('click', () => {
-      const subject = 'TOVICE product testing — I’m interested';
-      const body = toCRLF([
-        'Hello TOVICE team,', '',
-        'I’d like to hear about opportunities to test upcoming TOVICE products, including organizer pouches with color and touch cues.', '',
-        'Please contact me at this email address about product-testing opportunities.', '',
-        'Thank you!'
-      ].join('\n'));
-      document.getElementById('tester-subject').textContent = subject;
-      document.getElementById('tester-body').value = body;
-      document.getElementById('tester-open-email').href = mailto(subject, body);
-      testerCopyText = 'To: ' + SUPPORT_EMAIL + '\r\nSubject: ' + subject + '\r\n\r\n' + body;
-      document.getElementById('tester-copy-fallback').hidden = true;
-      document.getElementById('tester-copy-status').textContent = '';
-      document.getElementById('tester-question').hidden = true;
-      document.getElementById('tester-email').hidden = false;
-      document.getElementById('tester-email-title').focus();
-    });
-    document.getElementById('tester-no').addEventListener('click', () => {
-      document.getElementById('tester-question').hidden = true;
-      document.getElementById('tester-declined').hidden = false;
-      document.getElementById('tester-declined-title').focus();
-    });
-    document.getElementById('copy-tester').addEventListener('click', () => copyEmail(testerCopyText, document.getElementById('tester-copy-status'), document.getElementById('tester-copy-fallback')));
   </script>
 </body>
 </html>
