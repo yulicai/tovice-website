@@ -119,6 +119,12 @@
             <p class="hint">Your suggestions go privately to our team and help us improve future organizers.</p>
           </section>
           <div class="field">
+            <label class="field-label" for="customer-name">Your name</label>
+            <input type="text" id="customer-name" name="customer-name" maxlength="100" placeholder="The name you’d like us to use" autocomplete="name" autocapitalize="words" spellcheck="false" aria-describedby="name-hint name-error" required>
+            <p class="hint" id="name-hint">We’ll use this name to address you and sign your email.</p>
+            <p class="field-error" id="name-error" hidden></p>
+          </div>
+          <div class="field">
             <label class="field-label" for="order">Amazon order number</label>
             <input type="text" id="order" name="order" maxlength="60" pattern="[0-9]{3}-[0-9]{7}-[0-9]{7}" placeholder="123-1234567-1234567" autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="order-hint order-error" required>
             <p class="hint" id="order-hint">In Amazon, go to <strong>Your Orders</strong>, select your purchase, then open <strong>Order Details</strong>. You can also find the number in your order confirmation email.</p>
@@ -168,6 +174,8 @@
     const SUPPORT_EMAIL = 'hi.tovice@gmail.com';
     const form = document.getElementById('support-form');
     const preview = document.getElementById('email-preview');
+    const nameInput = document.getElementById('customer-name');
+    const nameError = document.getElementById('name-error');
     const order = document.getElementById('order');
     const notes = document.getElementById('notes');
     const emailBody = document.getElementById('email-body');
@@ -198,6 +206,16 @@
     }
     form.addEventListener('change', updateSizeOffer);
     form.hidden = false;
+    nameInput.addEventListener('input', () => {
+      nameInput.setCustomValidity('');
+      nameInput.removeAttribute('aria-invalid');
+      nameError.hidden = true;
+    });
+    nameInput.addEventListener('invalid', () => {
+      nameInput.setAttribute('aria-invalid', 'true');
+      nameError.textContent = nameInput.validationMessage;
+      nameError.hidden = false;
+    });
     order.addEventListener('input', () => {
       order.setCustomValidity('');
       order.removeAttribute('aria-invalid');
@@ -211,6 +229,9 @@
     notes.addEventListener('input', () => notes.setCustomValidity(''));
     form.addEventListener('submit', event => {
       event.preventDefault();
+      const customerName = nameInput.value.trim();
+      nameInput.value = customerName;
+      nameInput.setCustomValidity(customerName ? '' : 'Please enter the name you’d like us to use.');
       const orderNumber = order.value.trim();
       order.value = orderNumber;
       order.setCustomValidity(/^[0-9]{3}-[0-9]{7}-[0-9]{7}$/.test(orderNumber)
@@ -218,6 +239,8 @@
       notes.setCustomValidity(sizeSwap.checked && !notes.value.trim()
         ? 'Please share a product suggestion for the free size offer.' : '');
       if (!form.reportValidity()) return;
+      nameInput.removeAttribute('aria-invalid');
+      nameError.hidden = true;
       order.removeAttribute('aria-invalid');
       orderError.hidden = true;
       const data = new FormData(form);
@@ -233,7 +256,7 @@
         ...(sizeSwap.checked ? ['I would like a free different size and to keep my current organizer.', 'My product suggestions are below.', ''] : []),
         'Details / suggestions:', notes.value.trim() || 'None added.', '',
         'Please let me know how you can help.', '',
-        'Thank you!'
+        'Thank you,', customerName
       ].join('\n'));
       document.getElementById('email-subject').textContent = subject;
       emailBody.value = body;
