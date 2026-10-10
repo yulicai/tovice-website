@@ -31,10 +31,19 @@
     fieldset { padding:0; margin:0 0 27px; border:0; min-width:0; }
     legend,.field-label { padding:0; margin:0 0 10px; font-size:16px; font-weight:650; }
     .reason-grid { display:grid; grid-template-columns:1fr 1fr; gap:9px; }
+    .request-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:9px; }
+    .request-choice { position:relative; justify-content:center; text-align:center; }
+    .request-choice input { position:absolute; opacity:0; width:1px !important; height:1px !important; }
+    .request-choice:has(input:focus-visible) { outline:3px solid #b27b25; outline-offset:3px; }
     .choice { display:flex; align-items:center; gap:9px; border:1px solid var(--line); border-radius:10px; min-height:51px; padding:11px; cursor:pointer; font-size:14px; color:var(--ink); }
     .choice:has(input:checked) { border-color:var(--ink); background:var(--accent); box-shadow:inset 0 0 0 1px var(--ink); }
     .choice input { margin:0; width:17px; height:17px; flex-shrink:0; accent-color:var(--ink); }
     .field { margin:0 0 25px; }
+    .size-offer { padding:19px; margin:0 0 25px; border-radius:12px; background:var(--accent); border:1px solid var(--line); }
+    .size-offer h2 { font-size:20px; margin:0 0 9px; }
+    .size-offer p { margin:0 0 12px; font-size:14px; }
+    .size-offer .choice { background:white; font-weight:600; }
+    .size-offer .hint { font-size:12px; margin:10px 0 0; }
     .field-label { display:block; }
     .optional { font-size:13px; font-weight:400; color:var(--muted); }
     input[type=text],textarea { display:block; width:100%; border:1px solid #a4b6b1; border-radius:9px; padding:12px 13px; background:#fff; color:#223e40; font-size:16px; }
@@ -59,6 +68,18 @@
     details p { margin:12px 0 8px; color:var(--muted); }
     #copy-status { color:var(--ink); font-size:13px; margin:8px 0 0; }
     #copy-status:empty { display:none; }
+    .after-email { border-top:1px solid var(--line); margin-top:24px; padding-top:20px; }
+    .after-email p { margin:0 0 12px; font-size:13px; color:var(--muted); }
+    .after-email .button { font-size:14px; }
+    .tester-copy { font-size:15px; color:var(--muted); }
+    .tester-copy p { margin:0 0 17px; }
+    .tester-question { font-size:18px; font-weight:650; line-height:1.4; margin:22px 0 15px; }
+    .story { padding:19px; margin:22px 0; background:var(--accent); border-radius:12px; }
+    .story p:last-child { margin-bottom:0; }
+    #tester-body { font-size:14px; margin:12px 0 18px; min-height:210px; background:#fafbf9; }
+    .copy-status { font-size:13px; margin:10px 0 0; }
+    .copy-status:empty { display:none; }
+    .mission { margin:24px 0 18px; font-size:15px; font-weight:650; color:var(--ink); letter-spacing:-.01em; }
     footer { text-align:center; padding:25px 10px 0; color:var(--muted); font-size:12px; }
     footer p { margin:0 0 8px; }
     footer a { font-size:14px; overflow-wrap:anywhere; }
@@ -80,23 +101,38 @@
         <form id="support-form" hidden>
           <div class="steps" aria-label="Step 1 of 2"><strong>01 · Your details</strong><span class="line" aria-hidden="true"></span><span>02 · Your email</span></div>
           <fieldset>
-            <legend>What would you like help with?</legend>
+            <legend>What would you like to do?</legend>
+            <div class="request-grid">
+              <label class="choice request-choice"><input type="radio" name="request" value="Return" required><span>Return</span></label>
+              <label class="choice request-choice"><input type="radio" name="request" value="Exchange" required><span>Exchange</span></label>
+              <label class="choice request-choice"><input type="radio" name="request" value="Other" required><span>Other</span></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>What’s the issue?</legend>
             <div class="reason-grid">
               <label class="choice"><input type="radio" name="reason" value="The organizer is too large" required><span>Too large</span></label>
               <label class="choice"><input type="radio" name="reason" value="The organizer is too small" required><span>Too small</span></label>
               <label class="choice"><input type="radio" name="reason" value="The material is too soft" required><span>Too soft</span></label>
               <label class="choice"><input type="radio" name="reason" value="There is a quality issue" required><span>Quality issue</span></label>
-              <label class="choice"><input type="radio" name="reason" value="It is just not for me" required><span>Just not for me</span></label>
+              <label class="choice"><input type="radio" name="reason" value="I do not like the material" required><span>I don’t like the material</span></label>
               <label class="choice"><input type="radio" name="reason" value="Something else" required><span>Something else</span></label>
             </div>
           </fieldset>
+          <section class="size-offer" id="size-offer" aria-labelledby="size-offer-title" hidden>
+            <h2 id="size-offer-title">Let’s find a better fit.</h2>
+            <p>Share a product suggestion directly with us, and we’ll send you a different size for free. You can keep the organizer you already have.</p>
+            <label class="choice" id="size-offer-choice" hidden><input type="checkbox" id="size-swap" name="size-swap"><span>I’d like to try a different size.</span></label>
+            <p class="hint" id="size-offer-switch">To request this offer, choose Exchange above.</p>
+            <p class="hint">Your suggestions go privately to our team and help us improve future organizers.</p>
+          </section>
           <div class="field">
             <label class="field-label" for="order">Order number</label>
             <input type="text" id="order" name="order" maxlength="60" placeholder="Enter your order number" autocomplete="off" autocapitalize="off" spellcheck="false" aria-describedby="order-hint" required>
             <p class="hint" id="order-hint">Find it in your order confirmation or purchase history.</p>
           </div>
           <div class="field">
-            <label class="field-label" for="notes">Anything else? <span class="optional">(optional)</span></label>
+            <label class="field-label" for="notes"><span id="notes-label">Anything else?</span> <span class="optional" id="notes-optional">(optional)</span></label>
             <textarea id="notes" name="notes" maxlength="500" rows="3" placeholder="Share a suggestion or tell us a little more…" aria-describedby="notes-hint"></textarea>
             <p class="hint" id="notes-hint">Up to 500 characters. Please leave out payment details.</p>
           </div>
@@ -123,11 +159,52 @@
             <p id="copy-status" role="status" aria-live="polite"></p>
             <textarea id="copy-fallback" aria-label="Email details to copy manually" rows="12" readonly hidden></textarea>
           </details>
+          <div class="after-email">
+            <p>Once you’ve sent your email, come back here for a small invitation from our team.</p>
+            <button class="button secondary" id="email-sent" type="button">I’ve sent my support email</button>
+          </div>
+        </section>
+        <section id="tester-invitation" aria-labelledby="tester-title" hidden>
+          <button class="back" id="back-to-support" type="button">← Back to my support email</button>
+          <p class="eyebrow">An optional invitation</p>
+          <h2 id="tester-title" tabindex="-1">Help shape what comes next.</h2>
+          <div class="tester-copy">
+            <p>We’re always working to make better purse organizers, shaped by everyday experiences like yours.</p>
+            <div class="story">
+              <p>Ever forget which pocket you put something in?</p>
+              <p>We’re developing organizer pouches with different colors and textures, so it’s easier to remember what’s where — and find it by sight or touch.</p>
+            </div>
+            <p>Less time searching in your bag. More freedom to get out and explore the world.</p>
+          </div>
+          <div id="tester-question">
+            <p class="tester-question">Would you like to become a TOVICE product tester?</p>
+            <button class="button" id="tester-yes" type="button">I’m interested</button>
+            <button class="button secondary" id="tester-no" type="button">Not now</button>
+            <p class="button-note">This is optional and won’t affect your support request.</p>
+          </div>
+          <section id="tester-email" aria-labelledby="tester-email-title" hidden>
+            <h2 id="tester-email-title" tabindex="-1">Let us know you’re interested.</h2>
+            <p class="preview-intro">Send this separate email to ask TOVICE to contact you about future product-testing opportunities.</p>
+            <p class="email-label">To</p><p class="recipient">hi.tovice@gmail.com</p>
+            <p class="email-label">Subject</p><p class="subject" id="tester-subject"></p>
+            <label class="email-label" for="tester-body">Message</label>
+            <textarea id="tester-body" rows="9" readonly></textarea>
+            <a class="button" id="tester-open-email" href="mailto:hi.tovice@gmail.com">Open interest email <span aria-hidden="true">↗</span></a>
+            <p class="button-note">Tap Send in your email app to share your interest.</p>
+            <button class="button secondary" id="copy-tester" type="button">Copy interest email</button>
+            <p class="copy-status" id="tester-copy-status" role="status" aria-live="polite"></p>
+            <textarea id="tester-copy-fallback" aria-label="Interest email details to copy manually" rows="12" readonly hidden></textarea>
+          </section>
+          <section id="tester-declined" hidden>
+            <h2 id="tester-declined-title" tabindex="-1">No problem.</h2>
+            <p class="tester-copy">We’re here whenever you need help with your organizer. Thank you for sharing your experience with us.</p>
+          </section>
         </section>
         <noscript>Please enable JavaScript to prepare your email, or email <a href="mailto:hi.tovice@gmail.com">hi.tovice@gmail.com</a> with your order number and the issue.</noscript>
       </section>
     </main>
     <footer>
+      <p class="mission">Less time searching. More time exploring.</p>
       <p>Prefer to write to us directly?</p>
       <a href="mailto:hi.tovice@gmail.com">hi.tovice@gmail.com</a>
       <p class="small-print">This page prepares an email; it does not submit a return.<br>Your form details stay in this browser until you choose to email them.</p>
@@ -144,10 +221,34 @@
     const emailBody = document.getElementById('email-body');
     const copyStatus = document.getElementById('copy-status');
     const copyFallback = document.getElementById('copy-fallback');
+    const sizeOffer = document.getElementById('size-offer');
+    const sizeSwap = document.getElementById('size-swap');
+    const tester = document.getElementById('tester-invitation');
     let copyText = '';
+    let testerCopyText = '';
     const toCRLF = text => text.replace(/\r\n|\r|\n/g, '\r\n');
+    const mailto = (subject, body) => 'mailto:' + SUPPORT_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    function updateSizeOffer() {
+      const data = new FormData(form);
+      const isSizeIssue = ['The organizer is too large', 'The organizer is too small'].includes(data.get('reason'));
+      const isExchange = data.get('request') === 'Exchange';
+      sizeOffer.hidden = !isSizeIssue;
+      document.getElementById('size-offer-choice').hidden = !isExchange;
+      document.getElementById('size-offer-switch').hidden = isExchange;
+      if (!isSizeIssue || !isExchange) sizeSwap.checked = false;
+      notes.required = sizeSwap.checked;
+      notes.setCustomValidity('');
+      document.getElementById('notes-label').textContent = sizeSwap.checked ? 'What could we improve?' : 'Anything else?';
+      document.getElementById('notes-optional').hidden = sizeSwap.checked;
+      notes.placeholder = sizeSwap.checked ? 'Tell us what would make this organizer work better for you…' : 'Share a suggestion or tell us a little more…';
+      document.getElementById('notes-hint').textContent = sizeSwap.checked
+        ? 'Please share a product suggestion for the free size offer. Up to 500 characters.'
+        : 'Your everyday experience helps us improve. Up to 500 characters.';
+    }
+    form.addEventListener('change', updateSizeOffer);
     form.hidden = false;
     order.addEventListener('input', () => order.setCustomValidity(''));
+    notes.addEventListener('input', () => notes.setCustomValidity(''));
     form.addEventListener('submit', event => {
       event.preventDefault();
       const orderNumber = order.value.trim().replace(/[\r\n]/g, ' ');
@@ -156,20 +257,29 @@
         order.reportValidity();
         return;
       }
-      const reason = new FormData(form).get('reason');
-      const subject = 'TOVICE product support — Order ' + orderNumber;
+      if (sizeSwap.checked && !notes.value.trim()) {
+        notes.setCustomValidity('Please share a product suggestion for the free size offer.');
+        notes.reportValidity();
+        return;
+      }
+      const data = new FormData(form);
+      const reason = data.get('reason');
+      const request = data.get('request');
+      const subject = 'TOVICE ' + request.toLowerCase() + ' request — Order ' + orderNumber;
       const body = toCRLF([
         'Hello TOVICE team,', '',
         'I would like help with my purse organizer insert.', '',
         'Order number: ' + orderNumber,
+        'Request: ' + request,
         'Reason: ' + reason, '',
+        ...(sizeSwap.checked ? ['I would like a free different size and to keep my current organizer.', 'My product suggestions are below.', ''] : []),
         'Details / suggestions:', notes.value.trim() || 'None added.', '',
         'Please let me know how you can help.', '',
         'Thank you!'
       ].join('\n'));
       document.getElementById('email-subject').textContent = subject;
       emailBody.value = body;
-      document.getElementById('open-email').href = 'mailto:' + SUPPORT_EMAIL + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      document.getElementById('open-email').href = mailto(subject, body);
       copyText = 'To: ' + SUPPORT_EMAIL + '\r\nSubject: ' + subject + '\r\n\r\n' + body;
       copyFallback.value = copyText;
       copyFallback.hidden = true;
@@ -182,19 +292,59 @@
     document.getElementById('edit').addEventListener('click', () => {
       preview.hidden = true;
       form.hidden = false;
-      form.querySelector('input[name="reason"]:checked').focus();
+      form.querySelector('input[name="request"]:checked').focus();
     });
-    document.getElementById('copy-email').addEventListener('click', async () => {
+    async function copyEmail(text, status, fallback) {
       try {
-        await navigator.clipboard.writeText(copyText);
-        copyStatus.textContent = 'Copied. Paste into a new email, add the recipient and subject, then send.';
+        await navigator.clipboard.writeText(text);
+        status.textContent = 'Copied. Paste into a new email, add the recipient and subject, then send.';
       } catch {
-        copyStatus.textContent = 'Copy is unavailable here. Select and copy the details below.';
-        copyFallback.hidden = false;
-        copyFallback.focus();
-        copyFallback.select();
+        status.textContent = 'Copy is unavailable here. Select and copy the details below.';
+        fallback.value = text;
+        fallback.hidden = false;
+        fallback.focus();
+        fallback.select();
       }
+    }
+    document.getElementById('copy-email').addEventListener('click', () => copyEmail(copyText, copyStatus, copyFallback));
+    document.getElementById('email-sent').addEventListener('click', () => {
+      // This is the customer's own confirmation; mailto cannot report whether an email was sent.
+      preview.hidden = true;
+      tester.hidden = false;
+      document.getElementById('tester-question').hidden = false;
+      document.getElementById('tester-email').hidden = true;
+      document.getElementById('tester-declined').hidden = true;
+      document.getElementById('tester-title').focus();
     });
+    document.getElementById('back-to-support').addEventListener('click', () => {
+      tester.hidden = true;
+      preview.hidden = false;
+      document.getElementById('preview-title').focus();
+    });
+    document.getElementById('tester-yes').addEventListener('click', () => {
+      const subject = 'TOVICE product testing — I’m interested';
+      const body = toCRLF([
+        'Hello TOVICE team,', '',
+        'I’d like to hear about opportunities to test upcoming TOVICE products, including organizer pouches with color and touch cues.', '',
+        'Please contact me at this email address about product-testing opportunities.', '',
+        'Thank you!'
+      ].join('\n'));
+      document.getElementById('tester-subject').textContent = subject;
+      document.getElementById('tester-body').value = body;
+      document.getElementById('tester-open-email').href = mailto(subject, body);
+      testerCopyText = 'To: ' + SUPPORT_EMAIL + '\r\nSubject: ' + subject + '\r\n\r\n' + body;
+      document.getElementById('tester-copy-fallback').hidden = true;
+      document.getElementById('tester-copy-status').textContent = '';
+      document.getElementById('tester-question').hidden = true;
+      document.getElementById('tester-email').hidden = false;
+      document.getElementById('tester-email-title').focus();
+    });
+    document.getElementById('tester-no').addEventListener('click', () => {
+      document.getElementById('tester-question').hidden = true;
+      document.getElementById('tester-declined').hidden = false;
+      document.getElementById('tester-declined-title').focus();
+    });
+    document.getElementById('copy-tester').addEventListener('click', () => copyEmail(testerCopyText, document.getElementById('tester-copy-status'), document.getElementById('tester-copy-fallback')));
   </script>
 </body>
 </html>
